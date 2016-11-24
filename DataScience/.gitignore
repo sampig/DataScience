@@ -1,4 +1,5 @@
 
 *.Rout
+*.RData
 *.pdf
 
