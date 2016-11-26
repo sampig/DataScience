@@ -21,15 +21,34 @@ apply(new_var,2,median)
 
 apply(new_var,2,max)
 
+summary(new_var)
+
 
 # 3 visualize mpg and its density
 # display the frequency of mpg in some ranges.
-hist(new_var$mpg, xlab="Miles per Gallon", main="Histogram of frequency of MPG")
-# plot(new_var$mpg, xlab="Miles per Gallon")
+plot(new_var$mpg, ylab="Miles per Gallon")
+plot(sort(new_var$mpg), ylab="Miles per Gallon")
+dotchart(new_var$mpg, labels=row.names(new_var), xlab="Miles Per Gallon")
+# labels are useless after sorting
+# dotchart(sort(new_var$mpg), labels=row.names(new_var), xlab="Miles Per Gallon")
+
+h <- hist(new_var$mpg, xlab="Miles per Gallon", main="Histogram of frequency of MPG")
 
 # display the density of mpg in plot.
-plot(density(new_var$mpg), xlab="Miles per Gallon", ylab="density", main="Density of Miles per Gallon")
+p <- plot(density(new_var$mpg), xlab="Miles per Gallon", ylab="density", main="Density of Miles per Gallon")
+rug(new_var$mpg, side=1, col="red")
 
+# frequency with density
+d <- density(mtcars$mpg)
+d$y <- d$y * (h$counts / h$density)[1]
+plot(h, col="grey", xlab="Miles per Gallon")
+lines(d, col="blue")
+
+# density with frequency
+hist(new_var$mpg, density=10, breaks=5, prob=TRUE, 
+     xlab="Miles per Gallon", ylim=c(0, 0.1))
+curve(dnorm(x, mean=mean(new_var$mpg), sd=sqrt(var(new_var$mpg))), 
+      col="blue", lwd=2, add=TRUE, yaxt="n")
 
 # 4 Extends with a fuel consumption column
 # fc = (3.78541*100) / (1.60934*mpg)
