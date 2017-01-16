@@ -1,16 +1,19 @@
 # Exercise 04
 
+
 # 1. Load libraries
 # install.packages("e1071")
 # install.packages("party")
 library(e1071)
 library(party)
 
+
 # 2. Create a training set and a test set from iris.
 origi_set <- iris
 train <- sample(nrow(iris), 100)
 training_set <- iris[train,]
 test_set <- iris[-train,]
+
 
 # 3. Train naive Bayes classifier
 # using all
@@ -33,13 +36,16 @@ nb_sw <- naiveBayes(Species ~ Sepal.Width, data = training_set)
 nb_sw
 table(predict(nb_sw, training_set), training_set[,5])
 
+
 # 4. Train a decision tree
 ct_all <- ctree(Species ~ .,data = training_set)
 ct_all
 table(predict(ct_all, training_set[,1:4]), training_set[,5])
 
+
 # 5. Plot the decision tree
 plot(ct_all)
+
 
 # 6. Evaluate the results
 # naive bayes
