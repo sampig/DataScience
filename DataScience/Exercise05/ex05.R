@@ -1,4 +1,4 @@
-# Exercise 04
+# Exercise 05
 
 # 1. Load libraries
 # install.packages("forecast")
@@ -44,20 +44,22 @@ plot(stl_birth$time.series)
 
 
 # 5. Calculate an adjusted time series without seasonality
-dec_births_cal <- ts_births - dec_births$seasonal
-dec_births_cal
-plot(dec_births_cal)
-plot(dec_births_cal, col="red")
+dec_births_adjust <- ts_births - dec_births$seasonal
+dec_births_adjust
+plot(dec_births_adjust)
+plot(dec_births_adjust, col="red", ylim=c(20, 30))
 par(new=TRUE)
-plot(ts_births, col="black")
+plot(ts_births, col="black", ylim=c(20, 30))
+# par(new=TRUE)
+# plot(dec_births$seasonal, col="blue")
 
 
 # 6. Use the adjusted time series
 # p=q=d=1
-arima_births <- arima(ts_births, order = c(1L, 1L, 1L))
+arima_births <- arima(dec_births_adjust, order = c(1L, 1L, 1L))
 arima_births
 # automatical parameters
-arima_auto_births <- auto.arima(ts_births)
+arima_auto_births <- auto.arima(dec_births_adjust)
 arima_auto_births
 
 
@@ -77,23 +79,23 @@ plot(forecast_births2, ylim=c(20, 32), col="red")
 # test
 
 myts <- ts(1:100, frequency = 12, start = c(1946, 1), end=c(2017, 1))
-myts
-plot(myts)
+# myts
+# plot(myts)
 # subset the time series from 2008 forward using window commd
 house2 = window(myts, start=c(2008,1), end=c(2013, 6))
-plot(house2)
+# plot(house2)
 
 # stl: Seasonal Decomposition of Time Series by LOESS
 # fit the stl model using only the s.window argument
 fit = stl(house2, s.window="periodic")
-plot(fit)
+# plot(fit)
 # another fit this time setting the t.window argument, which changes the number of lags used in the LOESS smoothing parameters
 fit2 = stl(house2, s.window="periodic", t.window=15)
-plot(fit2)
+# plot(fit2)
 
 gnp <- ts(cumsum(1 + round(rnorm(100), 2)), start = c(1954, 7), frequency = 12)
 gnp
-plot(gnp)
+# plot(gnp)
 ts(1:100, start=c(2009, 1), end=c(2014, 12), frequency=12)
 ts(1:10, frequency = 12, start = c(1959, 2))
 
