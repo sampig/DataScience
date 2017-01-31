@@ -10,12 +10,12 @@ library(mongolite)
 # library(stringr)
 
 # other library
-library("e1071")
-library("party")
+library(e1071)
+library(party)
 if(!require(caret)) install.packages("caret")
-library("caret")
+library(caret)
 if(!require(partykit)) install.packages("partykit")
-library("partykit")
+library(partykit)
 
 ########################
 # Data Preparation
@@ -160,8 +160,8 @@ userdatatable[2,]
 x=userdatatable
 for(i in 1:nrow(userdatatable)) {
   if ((userdatatable[i,2]+userdatatable[i,3]+userdatatable[i,4]+userdatatable[i,5])!=0) {
-    userdatatable[i,13]=4
-    #print(userdatatable[i,])
+    # userdatatable[i,13]=4
+    # print(userdatatable[i,])
   }
 }
 x=userdatatable[userdatatable[,13]!="1",]
@@ -180,26 +180,12 @@ for(i in 1:nrow(x)) {
 # Data Analysis
 ########################
 
-# Create the training set and test set
-nrow(x)
-finaldata=cbind(x[,2:5],x[,13])
-colnames(finaldata)[5]="category"
-train_row <- sample(nrow(finaldata), 3000)
-training_set <- finaldata[train_row,]
-test_set <- finaldata[-train_row,]
+# Create training data
+train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+train=rbind(matrix(x$issue_create_total,ncol = 3), matrix(x$issue_report_total,ncol = 3),matrix(x$commit_commit_total,ncol = 3))
+train=rbind( matrix(x$issue_report_total,ncol = 2),matrix(x$issue_comment_total,ncol = 2))
 
-# 1. naive Bayes classifier
-# nb_all <- naiveBayes(training_set[,2:5], training_set[,13])
-nb_all <- naiveBayes(training_set[,1:4], training_set[,5])
-table(predict(nb_all, training_set[,1:4]), training_set[,5], dnn = list('predict','actual'))
-
-# 2. decision tree
-ct_all <- ctree(category ~ .,data = training_set)
-table(predict(ct_all, training_set[,1:4]), training_set[,5])
-plot(ct_all)
-
-
-#############
+##############
 # 1. k-means
 train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
 prediction1=kmeans(train,3)
@@ -227,12 +213,46 @@ model_ctree <- ctree(category ~ .,data = train)
 pred_ctree=predict(model_ctree, test)
 confusionMatrix(test$category,pred_ctree)
 
+##############
 # 3.naiveBayes
-######################################################
 model_naiveBayes=naiveBayes(category ~ ., data = train)
 pred_naiveBayes=predict(model_naiveBayes, test)
 #table(pred_naiveBayes, test$Species)
 confusionMatrix(pred_naiveBayes,test$category)
+
+
+##############
+# Others
+# Create the training set and test set
+d=userdatatable[(userdatatable[,2]+userdatatable[,3]+userdatatable[,4]+userdatatable[,5])!=0,]
+nrow(d)
+excercisedata=cbind(d[,2:5],d[,13])
+colnames(excercisedata)[5]="category"
+train_row <- sample(nrow(excercisedata), 400)
+training_set <- excercisedata[train_row,]
+test_set <- excercisedata[-train_row,]
+
+# 1. naive Bayes classifier
+# nb_all <- naiveBayes(training_set[,2:5], training_set[,13])
+nb_all <- naiveBayes(training_set[,1:4], training_set[,5])
+table(predict(nb_all, training_set[,1:4]), training_set[,5], dnn = list('predict','actual'))
+
+# 2. decision tree
+ct_all <- ctree(category ~ .,data = training_set)
+table(predict(ct_all, training_set[,1:4]), training_set[,5])
+plot(ct_all)
+
+# Evaluate the results
+# naive bayes
+nb_ptrain <- predict(nb_all, training_set[,1:4])
+nb_ptest <- predict(nb_all, test_set[,1:4])
+table(nb_ptrain, training_set[,5], dnn = list('predict','actual'))
+table(nb_ptest, test_set[,5], dnn = list('predict','actual'))
+# decision tree
+ct_ptrain <- predict(ct_all, training_set[,1:4])
+ct_ptest <- predict(ct_all, test_set[,1:4])
+table(ct_ptrain, training_set[,5])
+table(ct_ptest, test_set[,5])
 
 
 ########################
