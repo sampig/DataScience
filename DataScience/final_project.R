@@ -155,7 +155,7 @@ datatable[is.na(datatable)]=0
 # Merge information into matrix
 userdatatable=merge(datatable,p_cat,by.x="people_id",by.y="X_id",all.x=TRUE)
 userdatatable[is.na(userdatatable)]=0
-userdatatable[2,]
+# userdatatable[2,]
 # whether considering other types of participants
 x=userdatatable
 for(i in 1:nrow(userdatatable)) {
@@ -181,25 +181,59 @@ for(i in 1:nrow(x)) {
 ########################
 
 # Create training data
-train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
-train=rbind(matrix(x$issue_create_total,ncol = 3), matrix(x$issue_report_total,ncol = 3),matrix(x$commit_commit_total,ncol = 3))
-train=rbind( matrix(x$issue_report_total,ncol = 2),matrix(x$issue_comment_total,ncol = 2))
+#train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+#train=rbind(matrix(x$issue_create_total,ncol = 3), matrix(x$issue_report_total,ncol = 3),matrix(x$commit_commit_total,ncol = 3))
+#train=rbind(matrix(x$issue_report_total,ncol = 2),matrix(x$issue_comment_total,ncol = 2))
 
 ##############
 # 1. k-means
+#train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+# 3
+x=userdatatable
 train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
 prediction1=kmeans(train,3)
 real=matrix(x$category)
 prediction2=matrix(prediction1$cluster)
-
 prediction2=prediction2[-c(1,2),]
+prediction2=matrix(prediction2)
+#prediction2=prediction2[,1]+1
 confusionMatrix(real,prediction2)
+
+# 2 for 3 attributes
+#x=datatable[datatable[,13]!="1",]
+x=userdatatable[userdatatable[,13]!="1",]
+#train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+train=rbind(matrix(x$issue_create_total,ncol = 3), matrix(x$issue_report_total,ncol = 3),matrix(x$commit_commit_total,ncol = 3))
+prediction1=kmeans(train,2)
+real=matrix(x$category)
+prediction2=matrix(prediction1$cluster)
+#prediction2=prediction2[-c(1,1),]
+prediction2=matrix(prediction2)
+prediction2=prediction2[,1]+1
+confusionMatrix(real,prediction2)
+
+
+# 2 for 7 attributes
+#x=datatable[datatable[,13]!="1",]
+x=userdatatable[userdatatable[,13]!="1",]
+train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+#train=rbind(matrix(x$issue_create_total,ncol = 3), matrix(x$issue_report_total,ncol = 3),matrix(x$commit_commit_total,ncol = 3))
+prediction1=kmeans(train,2)
+real=matrix(x$category)
+prediction2=matrix(prediction1$cluster)
+prediction2=prediction2[-c(1,1),]
+prediction2=matrix(prediction2)
+prediction2=prediction2[,1]+1
+confusionMatrix(real,prediction2)
+
 
 ##############
 # 2. ctree
-#y = x[sample(nrow(x)),]
+x=userdatatable
+y = x[sample(nrow(x)),]
 #y=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
-#y=rbind(matrix(x$commit_auth_total,ncol = 8), matrix(x$commit_commit_total,ncol = 8), matrix(x$issue_create_total,ncol = 8), matrix(x$issue_report_total,ncol = 8), matrix(x$event_auth_total,ncol = 8), matrix(x$issue_comment_total,ncol = 8), matrix(x$message_from_total,ncol = 8),matrix(x$category,ncol = 8))
+y=rbind(matrix(x$commit_auth_total,ncol = 8), matrix(x$commit_commit_total,ncol = 8), matrix(x$issue_create_total,ncol = 8), matrix(x$issue_report_total,ncol = 8), matrix(x$event_auth_total,ncol = 8), matrix(x$issue_comment_total,ncol = 8), matrix(x$message_from_total,ncol = 8),matrix(x$category,ncol = 8))
+#train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
 y=x
 y[,1]       <- NULL
 y[,9]       <- NULL
@@ -210,15 +244,32 @@ y = y[sample(nrow(y)),]
 train=y[1:3000,]
 test=y[3000:4583,]
 model_ctree <- ctree(category ~ .,data = train)
+plot(model_ctree)
 pred_ctree=predict(model_ctree, test)
 confusionMatrix(test$category,pred_ctree)
 
 ##############
 # 3.naiveBayes
+x=userdatatable
+y = x[sample(nrow(x)),]
+#y=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+y=rbind(matrix(x$commit_auth_total,ncol = 8), matrix(x$commit_commit_total,ncol = 8), matrix(x$issue_create_total,ncol = 8), matrix(x$issue_report_total,ncol = 8), matrix(x$event_auth_total,ncol = 8), matrix(x$issue_comment_total,ncol = 8), matrix(x$message_from_total,ncol = 8),matrix(x$category,ncol = 8))
+#train=rbind(matrix(x$commit_auth_total,ncol = 7), matrix(x$commit_commit_total,ncol = 7), matrix(x$issue_create_total,ncol = 7), matrix(x$issue_report_total,ncol = 7), matrix(x$event_auth_total,ncol = 7), matrix(x$issue_comment_total,ncol = 7), matrix(x$message_from_total,ncol = 7))
+y=x
+y[,1]       <- NULL
+y[,9]       <- NULL
+y[,9]       <- NULL
+y[,9]       <- NULL
+y$category <- as.factor(y$category)
+y = y[sample(nrow(y)),]
+train=y[1:3000,]
+test=y[3000:4583,]
 model_naiveBayes=naiveBayes(category ~ ., data = train)
 pred_naiveBayes=predict(model_naiveBayes, test)
 #table(pred_naiveBayes, test$Species)
 confusionMatrix(pred_naiveBayes,test$category)
+
+
 
 
 ##############
@@ -241,6 +292,7 @@ table(predict(nb_all, training_set[,1:4]), training_set[,5], dnn = list('predict
 ct_all <- ctree(category ~ .,data = training_set)
 table(predict(ct_all, training_set[,1:4]), training_set[,5])
 plot(ct_all)
+confusionMatrix(test_set$category, predict(ct_all, test_set[,1:4]))
 
 # Evaluate the results
 # naive bayes
@@ -291,5 +343,4 @@ latest_commit_id = commits[which.max(commits$committer_date),1]
 con_codeentitystate = mongo(collection="code_entity_state", url=MONGO_URL)
 query_str = paste('{"commit_id":{"$oid": "',latest_commit_id,'"}}', sep="")
 code_entities = con_codeentitystate$find(query_str)
-
 
