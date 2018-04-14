@@ -1,0 +1,9 @@
+*.jar
+*.war
+*.class
+.settings
+/build
+/bin
+/target
+resources/config.properties
+src/de/l3s/d4um/test/*

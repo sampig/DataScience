@@ -1,0 +1,13 @@
+data.directory=DATA_DIRECTORY
+data.eventfile=eventPositives.nq
+data.eventfileP=eventPositives.nq
+data.eventfileN=eventNegatives.nq
+data.geofile=GeoNearBy.nq
+data.eventnamedescfile=eventNameDescription.nq
+data.eventnamedescfileP=eventNameDescriptionP_DE.nq
+data.eventnamedescfileN=eventNameDescriptionN_DE.nq
+data.eventnamedescdefile=eventNameDescriptionDE.nq
+
+tagme.url=https://tagme.d4science.org/tagme/tag
+tagme.lang=de
+tagme.token=YOUR_TOKEN
