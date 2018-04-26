@@ -1,0 +1,63 @@
+Zero Weights processed. Default weights will be used
+
+Options: -K 1 
+
+LibSVM wrapper, original code by Yasser EL-Manzalawy (= WLSVM)
+
+Time taken to build model: 535.22 seconds
+Time taken to test model on training data: 542.83 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances       12941               52.0974 %
+Incorrectly Classified Instances     11899               47.9026 %
+Kappa statistic                          0.0419
+Mean absolute error                      0.479 
+Root mean squared error                  0.6921
+Relative absolute error                 95.8052 %
+Root relative squared error            138.4234 %
+Total Number of Instances            24840     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.080    0.038    0.678      0.080    0.143      0.089    0.521     0.514     yes
+                 0.962    0.920    0.511      0.962    0.668      0.089    0.521     0.511     no
+Weighted Avg.    0.521    0.479    0.594      0.521    0.405      0.089    0.521     0.512     
+
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+   994 11426 |     a = yes
+   473 11947 |     b = no
+
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances       13974               56.256  %
+Incorrectly Classified Instances     10866               43.744  %
+Kappa statistic                          0.1251
+Mean absolute error                      0.4374
+Root mean squared error                  0.6614
+Relative absolute error                 87.4879 %
+Root relative squared error            132.2784 %
+Total Number of Instances            24840     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.274    0.149    0.648      0.274    0.386      0.153    0.563     0.541     yes
+                 0.851    0.726    0.540      0.851    0.660      0.153    0.563     0.534     no
+Weighted Avg.    0.563    0.437    0.594      0.563    0.523      0.153    0.563     0.537     
+
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+  3409  9011 |     a = yes
+  1855 10565 |     b = no
+

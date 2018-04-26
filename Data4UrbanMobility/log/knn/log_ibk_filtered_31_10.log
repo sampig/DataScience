@@ -1,0 +1,64 @@
+
+Options: -K 10 -A weka.core.neighboursearch.FilteredNeighbourSearch 
+
+IB1 instance-based classifier
+using 10 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0.43 seconds
+Time taken to test model on training data: 569.59 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances       21797               87.7496 %
+Incorrectly Classified Instances      3043               12.2504 %
+Kappa statistic                          0.755 
+Mean absolute error                      0.1337
+Root mean squared error                  0.2763
+Relative absolute error                 26.7448 %
+Root relative squared error             55.2594 %
+Total Number of Instances            24840     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.945    0.190    0.832      0.945    0.885      0.762    0.971     0.973     yes
+                 0.810    0.055    0.937      0.810    0.869      0.762    0.971     0.971     no
+Weighted Avg.    0.877    0.123    0.885      0.877    0.877      0.762    0.971     0.972     
+
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 11743   677 |     a = yes
+  2366 10054 |     b = no
+
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances       21164               85.2013 %
+Incorrectly Classified Instances      3676               14.7987 %
+Kappa statistic                          0.704 
+Mean absolute error                      0.162 
+Root mean squared error                  0.3103
+Relative absolute error                 32.3905 %
+Root relative squared error             62.0505 %
+Total Number of Instances            24840     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.925    0.221    0.807      0.925    0.862      0.712    0.952     0.954     yes
+                 0.779    0.075    0.912      0.779    0.840      0.712    0.952     0.952     no
+Weighted Avg.    0.852    0.148    0.860      0.852    0.851      0.712    0.952     0.953     
+
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 11489   931 |     a = yes
+  2745  9675 |     b = no
+
