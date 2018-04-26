@@ -5,8 +5,8 @@ IB1 instance-based classifier
 using 1 nearest neighbour(s) for classification
 
 
-Time taken to build model: 0.49 seconds
-Time taken to test model on training data: 923.97 seconds
+Time taken to build model: 1.07 seconds
+Time taken to test model on training data: 1256.98 seconds
 
 === Error on training data ===
 
@@ -38,27 +38,27 @@ Weighted Avg.    1.000    0.000    1.000      1.000    1.000      0.999    1.000
 
 === Stratified cross-validation ===
 
-Correctly Classified Instances       23816               95.8776 %
-Incorrectly Classified Instances      1024                4.1224 %
-Kappa statistic                          0.9176
-Mean absolute error                      0.0414
-Root mean squared error                  0.2028
-Relative absolute error                  8.2861 %
-Root relative squared error             40.5596 %
+Correctly Classified Instances       23966               96.4815 %
+Incorrectly Classified Instances       874                3.5185 %
+Kappa statistic                          0.9296
+Mean absolute error                      0.035 
+Root mean squared error                  0.1854
+Relative absolute error                  6.9913 %
+Root relative squared error             37.0714 %
 Total Number of Instances            24840     
 
 
 === Detailed Accuracy By Class ===
 
                  TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
-                 0.982    0.064    0.938      0.982    0.960      0.919    0.982     0.977     yes
-                 0.936    0.018    0.981      0.936    0.958      0.919    0.982     0.981     no
-Weighted Avg.    0.959    0.041    0.960      0.959    0.959      0.919    0.982     0.979     
+                 0.981    0.052    0.950      0.981    0.965      0.930    0.986     0.983     yes
+                 0.948    0.019    0.981      0.948    0.964      0.930    0.986     0.984     no
+Weighted Avg.    0.965    0.035    0.965      0.965    0.965      0.930    0.986     0.984     
 
 
 === Confusion Matrix ===
 
      a     b   <-- classified as
- 12197   223 |     a = yes
-   801 11619 |     b = no
+ 12186   234 |     a = yes
+   640 11780 |     b = no
 
