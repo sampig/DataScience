@@ -1,0 +1,12 @@
+*.jar
+*.war
+*.class
+*.bin
+.settings
+/build
+/bin
+/target
+/test
+resources/config.properties
+resources/sentiment
+resources/War_and_Peace_Book_One.txt
